@@ -1,6 +1,9 @@
 #ifndef __WORLD__
 #define __WORLD__
 
+/*
+  This is an helper class that keeps a shared pointer.
+*/
 class World
 {
         static void *world_ptr;
