@@ -17,7 +17,9 @@ int main()
     Network yarp;
 
 
+    //create here pointer (in real life you call a function from Gazebo)
     void *world=(void *)(0x0A);
+    //fill shared pointer
     World::setWorld(world);
 
     //Magic code starts. This is normally hidden, but I am making it
@@ -56,6 +58,11 @@ int main()
 
     printf("Goodbye!\n");
     driver.close();
-        
+
+    //here you are sure that the fakebot does not use the shared pointer
+    //it is safe to delete it
+
+    world=0; //in real life you call destroy/delete in Gazebo
+         
     return 0;
 }
