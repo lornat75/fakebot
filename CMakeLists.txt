@@ -8,7 +8,7 @@ find_package(YARP REQUIRED)
 
 include_directories(${YARP_INCLUDE_DIRS})
 
-add_executable(fakebot main.cpp FakeBot.cpp)
+add_executable(fakebot main.cpp FakeBot.cpp getWorld.cpp)
 
 target_link_libraries(fakebot ${YARP_LIBRARIES})
 

@@ -20,16 +20,16 @@ using namespace yarp::sig::draw;
 using namespace yarp::sig::file;
 using namespace yarp::dev;
 
+#include "getWorld.h"
+
 bool FakeBot::open(yarp::os::Searchable& config) {
 
     return RateThread::start();
 }
 
-
-
 bool FakeBot::threadInit()
 {
-    printf("FakeBot thread started\n");
+    printf("FakeBot thread started with world:%x\n", World::getWorld());
     return true;    
 }
 

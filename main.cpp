@@ -10,12 +10,19 @@
 using namespace yarp::os;
 using namespace yarp::dev;
 
+#include "getWorld.h"
+
 int main()
 {
     Network yarp;
 
+
+    void *world=(void *)(0x0A);
+    World::setWorld(world);
+
     //Magic code starts. This is normally hidden, but I am making it
     //explicit to simplify porting as a plugin of Gazebo. 
+
     Drivers::factory().add(new DriverCreatorOf<FakeBot>("fakebot2", 
         "controlboardwrapper2",
         "FakeBot"));
