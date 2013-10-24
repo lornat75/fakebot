@@ -16,6 +16,7 @@
 #include <yarp/sig/Image.h>
 #include <yarp/os/Time.h>
 #include <yarp/os/RateThread.h>
+#include <yarp/os/Time.h>
 
 namespace yarp {
     namespace dev {
@@ -24,14 +25,14 @@ namespace yarp {
 }
 
 const int ROBOT_REFRESH_PERIOD=20; //ms
-const int ROBOT_NUMBER_OF_JOINTS=2;
+const int ROBOT_NUMBER_OF_JOINTS=5;
 const double ROBOT_POSITION_TOLERANCE=0.9;
 
 class yarp::dev::FakeBot : public DeviceDriver,
             public IPositionControl, 
             public IVelocityControl,
             public IAmplifierControl,
-            public IEncoders, 
+            public IEncodersTimed, 
             public IControlCalibration2,
             public IControlLimits,
             public DeviceResponder,
@@ -259,8 +260,17 @@ public:
     }
 
     virtual bool getEncoder(int j, double *v) {
+       if (j<njoints) {
+            (*v) = pos[j];
+        }
+        
+        return true;
+    }
+
+    virtual bool getEncoderTimed(int j, double *v, double *t) {
         if (j<njoints) {
             (*v) = pos[j];
+            (*t) = yarp::os::Time::now();
         }
         
         return true;
@@ -269,6 +279,14 @@ public:
     virtual bool getEncoders(double *encs) {
         for (int i=0; i<njoints; i++) {
             encs[i] = pos[i];
+        }
+        return true;
+    }
+
+    virtual bool getEncodersTimed(double *encs, double *times) {
+        for (int i=0; i<njoints; i++) {
+            encs[i] = pos[i];
+            times[i]=yarp::os::Time::now();
         }
         return true;
     }
@@ -402,7 +420,7 @@ public:
     virtual bool setImpedancePositionMode(int j){return false;}
     virtual bool setImpedanceVelocityMode(int j){return false;}
     virtual bool setOpenLoopMode(int j){return false; }
-    virtual bool getControlMode(int j, int *mode){mode[j]=control_mode[j];};
+    virtual bool getControlMode(int j, int *mode){*mode=control_mode[j];};
     virtual bool getControlModes(int *modes)
     {
         for(int j=0;j<njoints;j++)

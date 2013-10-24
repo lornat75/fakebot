@@ -5,10 +5,11 @@
 cmake_minimum_required(VERSION 2.6)
 
 find_package(YARP REQUIRED)
+find_package(iCub REQUIRED)
 
-include_directories(${YARP_INCLUDE_DIRS})
+include_directories(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS})
 
 add_executable(fakebot main.cpp FakeBot.cpp getWorld.cpp)
 
-target_link_libraries(fakebot ${YARP_LIBRARIES})
+target_link_libraries(fakebot ${YARP_LIBRARIES} icubmod)
 
