@@ -8,8 +8,6 @@
 #include <yarp/dev/PolyDriver.h>
 #include <yarp/dev/Wrapper.h>
 
-YARP_DECLARE_DEVICES(icubmod)
-
 using namespace yarp::os;
 using namespace yarp::dev;
 
@@ -18,8 +16,6 @@ using namespace yarp::dev;
 int main()
 {
     Network yarp;
-
-    YARP_REGISTER_DEVICES(icubmod)
 
     //create here pointer (in real life you call a function from Gazebo)
     void *world=(void *)(0x0A);

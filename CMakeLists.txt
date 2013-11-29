@@ -2,14 +2,16 @@
 # Author: Lorenzo Natale
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.11)
+
+project (FakeBot)
 
 find_package(YARP REQUIRED)
-find_package(iCub REQUIRED)
 
-include_directories(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS})
+include_directories(${YARP_INCLUDE_DIRS})
 
-add_executable(fakebot main.cpp FakeBot.cpp getWorld.cpp)
+add_subdirectory(src)
 
-target_link_libraries(fakebot ${YARP_LIBRARIES} icubmod)
+#include(AddUninstallTarget)
+
 
