@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #include <yarp/os/Network.h>
 
@@ -13,9 +14,21 @@ using namespace yarp::dev;
 
 #include "getWorld.h"
 
-int main()
+using namespace std;
+
+int main(int argc, const char **argv)
 {
     Network yarp;
+
+    Property p;
+    p.fromCommand(argc, argv);
+
+    string name;
+
+    if (p.check("name"))
+        name=p.find("name").asString().c_str();
+    else
+        name="robby";
 
     //create here pointer (in real life you call a function from Gazebo)
     void *world=(void *)(0x0A);
@@ -25,7 +38,7 @@ int main()
     //Magic code starts. This is normally hidden, but I am making it
     //explicit to simplify porting as a plugin of Gazebo. 
 
-    Drivers::factory().add(new DriverCreatorOf<FakeBot>("fakebot2", 
+    Drivers::factory().add(new DriverCreatorOf<FakeBot>("fakebot", 
         "controlboardwrapper2",
         "FakeBot"));
 
@@ -34,7 +47,7 @@ int main()
  
     PolyDriver driver;
     Property parameters;
-    parameters.put("device", "fakebot2");
+    parameters.put("device", "fakebot");
     driver.open(parameters);
 
     if (!driver.isValid())
@@ -51,26 +64,29 @@ int main()
     Property paramsHead;
     Value tmp;
     paramsHead.put("device", "controlboardwrapper2");
-    paramsHead.put("rootName", "coman");
-    paramsHead.put("name", "coman/head");
+    string tmpString;
+    tmpString=name+"/"+"head";
+
+    paramsHead.put("name", tmpString);
     tmp.fromString("(fakebot)");
     //head has 3 joints
     paramsHead.put("joints", 3);
     paramsHead.put("networks", tmp);
-    //map joints 0-2 from fakebot to 0-2 of part coman/head
+    //map joints 0-2 from fakebot to 0-2 of part robot/head
     tmp.fromString("(0 2 0 2)");  
     paramsHead.put("fakebot", tmp);
 
     //Init for torso part. Notice: this initialization usually goes to a file
     Property paramsTorso;
     paramsTorso.put("device", "controlboardwrapper2");
-    paramsTorso.put("rootName", "coman");
-    paramsTorso.put("name", "coman/torso");
+    
+    tmpString=name+"/"+"torso";
+    paramsTorso.put("name", tmpString);
     tmp.fromString("(fakebot)");
     //torso has 3 joints
     paramsTorso.put("joints", 2);
     paramsTorso.put("networks", tmp);
-    //map joints 0-1 from fakebot to 3-4 of part coman/torso
+    //map joints 0-1 from fakebot to 3-4 of part robot/torso
     tmp.fromString("(0 1 3 4)");
     paramsTorso.put("fakebot", tmp);
 
