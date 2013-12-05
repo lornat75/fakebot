@@ -1,7 +1,7 @@
 /**
  * \defgroup walkman_fakebot Fakebot
- * \ingroup walkman_modules
  * \ingroup walkman_examples
+ * \ingroup walkman_modules
  *
  * \author Lorenzo Natale <lorenzo.natale@iit.it>
  *
