@@ -25,9 +25,9 @@
  * \section portsc_sec Ports Created
  * 
  * Given <name> (as defined in the name parameter) and each <part> (head, torso) the module open the following ports:
- * /<name>/<part>/rpc:i
- * /<name>/<part>/state:o
- * /<name>/<part>/command:i 
+ * - /<name>/<part>/rpc:i
+ * - /<name>/<part>/state:o
+ * - /<name>/<part>/command:i 
  *
  * Which exports the motor standard YARP interfaces.
  * 
