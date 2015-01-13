@@ -407,20 +407,36 @@ public:
 
 
     // IControlMode
-    virtual bool setPositionMode(int j){control_mode[j]=VOCAB_CM_POSITION;}
-    virtual bool setVelocityMode(int j){control_mode[j]=VOCAB_CM_VELOCITY;};
+    virtual bool setPositionMode(int j)
+    {
+        control_mode[j]=VOCAB_CM_POSITION;
+        return true;
+    }
+    
+    virtual bool setVelocityMode(int j)
+    {
+        control_mode[j]=VOCAB_CM_VELOCITY;
+        return true;
+    }
 
     virtual bool setVelocityMode() 
     {
        for(int j=0; j<njoints; j++)
            { control_mode[j]=VOCAB_CM_VELOCITY;}
+       return true;
     }
     
     virtual bool setTorqueMode(int j){ return false; };
     virtual bool setImpedancePositionMode(int j){return false;}
     virtual bool setImpedanceVelocityMode(int j){return false;}
     virtual bool setOpenLoopMode(int j){return false; }
-    virtual bool getControlMode(int j, int *mode){*mode=control_mode[j];};
+    
+    virtual bool getControlMode(int j, int *mode)
+    {
+        *mode=control_mode[j];
+        return true;
+    }
+
     virtual bool getControlModes(int *modes)
     {
         for(int j=0;j<njoints;j++)
