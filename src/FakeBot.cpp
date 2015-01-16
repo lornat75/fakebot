@@ -29,7 +29,7 @@ bool FakeBot::open(yarp::os::Searchable& config) {
 
 bool FakeBot::threadInit()
 {
-    printf("FakeBot thread started with world:%x\n", World::getWorld());
+    printf("FakeBot thread started with world:%p\n", World::getWorld());
     return true;    
 }
 
