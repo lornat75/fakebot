@@ -62,7 +62,7 @@ int main(int argc, const char **argv)
         "controlboardwrapper2",
         "FakeBot"));
 
-    printf("List of known devices (make sure fakebot2 and controlboardwrapper2 are listed):\n");
+    printf("List of known devices (make sure fakebot and controlboardwrapper2 are listed):\n");
     printf("%s\n", yarp::dev::Drivers::factory().toString().c_str());
  
     PolyDriver driver;
